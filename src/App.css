@@ -52,6 +52,22 @@ body {
   font-weight: 500;
 }
 
+.config-warning {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.config-warning p {
+  color: #856404;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+}
+
 .query-form {
   margin-bottom: 30px;
 }

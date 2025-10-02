@@ -12,12 +12,19 @@ function App() {
     e.preventDefault()
     if (!query.trim()) return
 
+    // Check if API URL is configured
+    const apiUrl = import.meta.env.VITE_APP_BASE_URL
+    if (!apiUrl) {
+      setError('API URL not configured. Please set VITE_APP_BASE_URL environment variable.')
+      return
+    }
+
     setLoading(true)
     setError('')
     setResponse('')
 
     try {
-      const result = await axios.post(import.meta.env.VITE_APP_BASE_URL, {
+      const result = await axios.post(apiUrl, {
         query: query.trim()
       })
       
@@ -97,12 +104,21 @@ function App() {
       .filter(Boolean)
   }
 
+  // Check if API URL is configured on component mount
+  const apiUrl = import.meta.env.VITE_APP_BASE_URL
+  const isApiConfigured = !!apiUrl
+
   return (
     <div className="app">
       <div className="container">
         <header className="header">
           <h1>🤖 AI Agent Assistant</h1>
           <p>Powered by Google Gemini & SerpAPI</p>
+          {!isApiConfigured && (
+            <div className="config-warning">
+              <p>⚠️ API not configured. Please set VITE_APP_BASE_URL environment variable.</p>
+            </div>
+          )}
         </header>
 
         <form onSubmit={handleSubmit} className="query-form">
